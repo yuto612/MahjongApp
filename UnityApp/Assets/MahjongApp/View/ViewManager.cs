@@ -9,7 +9,6 @@ public class ViewManager : MonoBehaviour
     [SerializeField] private TopView topView = null;
     [SerializeField] private ConfigView configView = null;
     [SerializeField] private ReadView readView = null;
-    [SerializeField] private InfoRegistoryView infoRegistoryView = null;
     [SerializeField] private ResultView resultView = null;
 
     // Start is called before the first frame update
@@ -48,7 +47,6 @@ public class ViewManager : MonoBehaviour
         configView.Hide();
         readView.Hide();
         resultView.Hide();
-        infoRegistoryView.Hide();
     }
 
     private void OnStartViews()
@@ -57,7 +55,6 @@ public class ViewManager : MonoBehaviour
         configView.OnStart();
         readView.OnStart();
         resultView.OnStart();
-        infoRegistoryView.OnStart();
     }
 
     private void SubscribeEvents()
@@ -69,20 +66,12 @@ public class ViewManager : MonoBehaviour
 
         topView.OnStartButton.Subscribe(_ =>
         {
-            if (infoRegistoryView.IsSkip)
                 Next(topView, readView);
-            else
-                Next(topView,infoRegistoryView);
         }).AddTo(this);
 
         configView.OnReturnButton.Subscribe(_ =>
         {
             Next(configView,topView);
-        }).AddTo(this);
-
-        infoRegistoryView.OnRegistoryButton.Subscribe(_ =>
-        {
-            Next(infoRegistoryView, readView);
         }).AddTo(this);
 
         readView.OnReadButton.Subscribe(_ =>
